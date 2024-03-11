@@ -45,7 +45,7 @@ local function url_encode(url)
 end
 
 
-function M.search_internet()
+function M.search_web()
     local selection = get_visual_selection()
     local escaped_selection = url_encode(selection)
     local url = vim.fn.shellescape(M.config.search_url .. escaped_selection)
@@ -57,7 +57,7 @@ end
 function M.setup(user_config)
     M.config = vim.tbl_extend("force", M.config, user_config or {})
 
-    vim.keymap.set("v", M.config.search_key, M.search_internet)
+    vim.keymap.set("v", M.config.search_key, M.search_web)
 end
 
 
@@ -65,6 +65,9 @@ M.config = {
     search_url = "http://ulf-westermann.de:8080/search?q=",
     search_key = "<leader>s"
 }
+
+
+vim.api.nvim_create_user_command('Websearch', M.search_web)
 
 
 return M
