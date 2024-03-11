@@ -49,7 +49,7 @@ function M.search_web()
     local selection = get_visual_selection()
     local escaped_selection = url_encode(selection)
     local url = vim.fn.shellescape(M.config.search_url .. escaped_selection)
-    local cmd_string = "firefox " .. url
+    local cmd_string = M.config.browser .. " " .. url
     vim.fn.jobstart(cmd_string)
 end
 
@@ -62,6 +62,7 @@ end
 
 
 M.config = {
+    browser = "firefox",
     search_url = "http://ulf-westermann.de:8080/search?q=",
     search_key = "<leader>s"
 }
@@ -71,4 +72,3 @@ vim.api.nvim_create_user_command('Websearch', M.search_web)
 
 
 return M
-
