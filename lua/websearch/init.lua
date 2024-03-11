@@ -30,6 +30,10 @@ local function get_visual_selection()
         end
     end
 
+    if sel_begin_col == nil then
+        return nil
+    end
+
     local lines_table = vim.api.nvim_buf_get_text(0, sel_begin_row-1, sel_begin_col-1, sel_end_row-1, sel_end_col, {})
 
     return table.concat(lines_table, "\n")
@@ -47,9 +51,15 @@ end
 
 function M.search_web()
     local selection = get_visual_selection()
+
+    if selection == nil then
+        return
+    end
+
     local escaped_selection = url_encode(selection)
     local url = vim.fn.shellescape(M.config.search_url .. escaped_selection)
     local cmd_string = M.config.browser .. " " .. url
+
     vim.fn.jobstart(cmd_string)
 end
 
