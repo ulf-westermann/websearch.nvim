@@ -68,7 +68,7 @@ M.config = {
 }
 
 
-vim.api.nvim_create_user_command('Websearch', M.search_web)
+vim.api.nvim_create_user_command('Websearch', M.search_web, {desc = "Execute a web search on selected text"})
 
 
 return M
