@@ -27,7 +27,7 @@ The `setup()` function of websearch.nvim takes an optional parameter with a Lua 
 
 * `browser` (string, default: "firefox")
 * `search_key` (string, default: "\<leader\>s")
-* `search_url` (string, default: "<span>https://search.projectsegfau.lt/search?q=</span>")
+* `search_url` (string, default: "<span>h</span>ttps://search.projectsegfau.lt/search?q=")
 
 Example (when used with lazy.nvim):
 
