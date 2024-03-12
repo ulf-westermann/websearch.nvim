@@ -1,6 +1,7 @@
 local M = {}
 
 
+-- get current selection as string
 local function get_visual_selection()
     local visual_mode = vim.fn.mode()
 
@@ -40,15 +41,17 @@ local function get_visual_selection()
 end
 
 
-local function url_encode(url)
-    url = string.gsub(url, "([^%w%.%-])", function(c)
+-- url encode ("percent encode") a string
+local function url_encode(input)
+    local output = string.gsub(input, "([^%w%.%-])", function(c)
         return string.format("%%%02X", string.byte(c))
     end)
 
-    return url
+    return output
 end
 
 
+-- the actual function that executes the search
 function M.search_web()
     local selection = get_visual_selection()
 
@@ -56,28 +59,34 @@ function M.search_web()
         return
     end
 
-    local escaped_selection = url_encode(selection)
-    local url = vim.fn.shellescape(M.config.search_url .. escaped_selection)
-    local cmd_string = M.config.browser .. " " .. url
+    local encoded_selection = url_encode(selection)
+    local escaped_selection = vim.fn.shellescape(M.config.search_url .. encoded_selection)
+    local cmd_string = M.config.browser .. " " .. escaped_selection
 
     vim.fn.jobstart(cmd_string)
 end
 
 
+-- setup takes an optional configuration table and defines a key binding.
 function M.setup(user_config)
     M.config = vim.tbl_extend("force", M.config, user_config or {})
 
-    vim.keymap.set("v", M.config.search_key, M.search_web)
+    if M.config.search_key ~= nil and M.config.search_key ~= "" then
+        vim.keymap.set("v", M.config.search_key, M.search_web)
+    end
 end
 
 
+-- the configuration
 M.config = {
     browser = "firefox",
-    search_url = "http://ulf-westermann.de:8080/search?q=",
+    search_url = "https://search.projectsegfau.lt/search?q=",
+    --search_url = "http://ulf-westermann.de:8080/search?q=",
     search_key = "<leader>s"
 }
 
 
+-- create user command when module is `required()`
 vim.api.nvim_create_user_command('Websearch', M.search_web, {desc = "Execute a web search on selected text"})
 
 
