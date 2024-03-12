@@ -25,9 +25,9 @@ Copy the `websearch` folder into your neovim `lua` folder, copy `websearch.lua` 
 
 The `setup()` function of websearch.nvim takes an optional parameter with a Lua table that can contain the following configurations:
     
-    - `browser` (default: "firefox")
-    - `search_url` (default: "https://search.projectsegfau.lt/search?q=")
-    - `search_key` (default: "<leader>s")
+    * browser (default: "firefox")
+    * search_url (default: "https://search.projectsegfau.lt/search?q=")
+    * search_key (default: "<leader>s")
 
 Example (when used with lazy.nvim):
 
