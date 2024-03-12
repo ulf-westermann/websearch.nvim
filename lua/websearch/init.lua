@@ -80,8 +80,8 @@ end
 -- the configuration
 M.config = {
     browser = "firefox",
+    search_key = "<leader>s",    
     search_url = "https://search.projectsegfau.lt/search?q=",
-    search_key = "<leader>s"
 }
 
 
