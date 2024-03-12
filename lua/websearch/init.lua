@@ -81,7 +81,6 @@ end
 M.config = {
     browser = "firefox",
     search_url = "https://search.projectsegfau.lt/search?q=",
-    --search_url = "http://ulf-westermann.de:8080/search?q=",
     search_key = "<leader>s"
 }
 
